@@ -14,7 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_GroupName: Localization-Assets-Shared
   m_GUID: b63fa8714c2ada7438d43bb9a5f98d63
-  m_SerializeEntries: []
+  m_SerializeEntries:
+  - m_GUID: 5fe3cbed07d66864c95f8de882845bdb
+    m_Address: Assets/Game/Translations/UI Shared Data.asset
+    m_ReadOnly: 1
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 1
   m_Settings: {fileID: 11400000, guid: 71237eeb9a2e4eb4fab0732e01aa297b, type: 2}
   m_SchemaSet:
