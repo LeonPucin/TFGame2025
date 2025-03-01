@@ -1,0 +1,20 @@
+{
+    "name": "doublededitor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:72e1f122ad366034884280e76b388857",
+        "GUID:f51ebe6a0ceec4240a699833d6309b23",
+        "GUID:324caed91501a9c47a04ebfd87b68794"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
