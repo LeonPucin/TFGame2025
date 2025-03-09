@@ -47,11 +47,11 @@ namespace DoubleDCore.Debugging
 
             if (key == -1)
             {
-                debugText.Timer.Start(duration, () => Destroy(debugText.gameObject));
+                debugText.Timer.Start(duration, onEnd: () => Destroy(debugText.gameObject));
                 return;
             }
 
-            debugText.Timer.Start(duration, () => ClearText(key));
+            debugText.Timer.Start(duration, onEnd: () => ClearText(key));
 
             if (hasInstance == false)
                 Texts.Add(key, debugText);

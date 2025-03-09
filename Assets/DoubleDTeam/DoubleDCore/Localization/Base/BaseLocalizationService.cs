@@ -3,6 +3,7 @@ using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Localization;
 using UnityEngine.Localization.Settings;
+using UnityEngine.Localization.Tables;
 
 namespace DoubleDCore.Localization.Base
 {
@@ -39,7 +40,7 @@ namespace DoubleDCore.Localization.Base
             return LocalizationSettings.SelectedLocale.Identifier.Code;
         }
 
-        public UniTask<string> GetTranslation(string key, params object[] smartObjects)
+        public UniTask<string> GetTranslation(TableEntryReference key, params object[] smartObjects)
         {
             return LocalizationSettings.StringDatabase.GetLocalizedStringAsync(key, smartObjects).Task.AsUniTask();
         }

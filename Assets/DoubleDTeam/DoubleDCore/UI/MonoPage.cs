@@ -10,6 +10,7 @@ namespace DoubleDCore.UI
     {
         [ReadOnly, SerializeField] private Canvas _canvas;
         [ReadOnly, SerializeField] private GraphicRaycaster _graphicRaycaster;
+        [SerializeField] private bool _graphicsRaycasterEnabled = true;
 
         protected bool PageIsDisplayed;
 
@@ -40,7 +41,7 @@ namespace DoubleDCore.UI
         {
             PageIsDisplayed = isActive;
 
-            GraphicRaycaster.enabled = isActive;
+            GraphicRaycaster.enabled = _graphicsRaycasterEnabled && isActive;
             Canvas.enabled = isActive;
         }
     }

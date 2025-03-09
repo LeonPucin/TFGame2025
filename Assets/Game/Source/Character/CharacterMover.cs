@@ -1,4 +1,5 @@
 ﻿using Cinemachine;
+using Game.Source.Extensions;
 using Infrastructure.Input;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -7,7 +8,7 @@ using Zenject;
 namespace Game.Source.Character
 {
     [RequireComponent(typeof(CharacterController))]
-    public class FPSController : MonoBehaviour
+    public class CharacterMover : MonoBehaviour
     {
         [SerializeField] private CinemachineVirtualCamera _camera;
         [Range(0, 100f), SerializeField] private float _speed = 5f;
@@ -59,10 +60,10 @@ namespace Game.Source.Character
         {
             Vector2 input = _inputProvider.Character.Movement.ReadValue<Vector2>();
 
-            Vector3 forward = _camera.State.FinalOrientation * Vector3.forward;
+            Vector3 forward = _camera.GetForward();
             forward.y = 0f;
 
-            Vector3 right = _camera.State.FinalOrientation * Vector3.right;
+            Vector3 right = _camera.GetRight();
 
             Vector3 direction = (right * input.x + forward * input.y).normalized;
             Vector3 move = direction * _speed;
@@ -73,6 +74,8 @@ namespace Game.Source.Character
             move *= _weightModifier;
 
             _verticalVelocity += Physics.gravity.magnitude * Time.deltaTime;
+
+            _verticalVelocity = Mathf.Clamp(_verticalVelocity, -_maxVerticalVelocity, _maxVerticalVelocity);
 
             if (_characterController.isGrounded)
                 _verticalVelocity = 0f;

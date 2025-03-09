@@ -104,6 +104,7 @@ namespace Infrastructure
         {
             Container.Bind<IPrefabFabric>().To<PrefabFabric>().AsSingle();
             Container.Bind<ITimersFactory>().To<TimersFabric>().AsSingle();
+            Container.Bind<IRayCasterFabric>().To<RayCasterFabric>().AsSingle();
         }
 
         private void RegisterInputService()

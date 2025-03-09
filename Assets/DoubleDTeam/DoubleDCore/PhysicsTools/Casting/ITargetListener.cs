@@ -2,9 +2,14 @@
 
 namespace DoubleDCore.PhysicsTools.Casting
 {
-    public interface ITargetListener
+    public interface ITargetListener<TTarget>
     {
-        public void OnCastEnter(Collider target);
-        public void OnCastExit(Collider target);
+        public TTarget GetTarget(Collider target);
+
+        public bool IsTarget(TTarget target);
+
+        public void OnCastEnter(TTarget target);
+
+        public void OnCastExit(TTarget target);
     }
 }

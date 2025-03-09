@@ -1,5 +1,6 @@
 ﻿using System;
 using Cysharp.Threading.Tasks;
+using UnityEngine.Localization.Tables;
 
 namespace DoubleDCore.Localization.Base
 {
@@ -15,6 +16,6 @@ namespace DoubleDCore.Localization.Base
 
         public void SetDefaultLanguage();
 
-        public UniTask<string> GetTranslation(string key, params object[] smartObjects);
+        public UniTask<string> GetTranslation(TableEntryReference key, params object[] smartObjects);
     }
 }

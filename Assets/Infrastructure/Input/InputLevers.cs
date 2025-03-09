@@ -51,7 +51,16 @@ public partial class @InputLevers: IInputActionCollection2, IDisposable
                     ""id"": ""c2e8f60b-6c7c-48e5-ae99-775b667efacd"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """",
+                    ""interactions"": ""Hold"",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Interact"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""94f517e5-6f09-45fb-bd79-b40a019c0edb"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Hold"",
                     ""initialStateCheck"": true
                 }
             ],
@@ -60,7 +69,7 @@ public partial class @InputLevers: IInputActionCollection2, IDisposable
                     ""name"": """",
                     ""id"": ""230997b0-2853-4ea6-9ad4-170e52f89866"",
                     ""path"": ""<Keyboard>/shift"",
-                    ""interactions"": ""Hold"",
+                    ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""RunBoost"",
@@ -152,6 +161,28 @@ public partial class @InputLevers: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""Joystick"",
                     ""action"": ""Look"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""830c7a12-9cb8-47fd-8fd5-8dfa7b047b11"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d087ce07-c0f1-46d1-84d3-052dbf2ee6f7"",
+                    ""path"": ""<Pointer>/press"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interact"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -681,6 +712,7 @@ public partial class @InputLevers: IInputActionCollection2, IDisposable
         m_Character_Movement = m_Character.FindAction("Movement", throwIfNotFound: true);
         m_Character_Look = m_Character.FindAction("Look", throwIfNotFound: true);
         m_Character_RunBoost = m_Character.FindAction("RunBoost", throwIfNotFound: true);
+        m_Character_Interact = m_Character.FindAction("Interact", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -763,6 +795,7 @@ public partial class @InputLevers: IInputActionCollection2, IDisposable
     private readonly InputAction m_Character_Movement;
     private readonly InputAction m_Character_Look;
     private readonly InputAction m_Character_RunBoost;
+    private readonly InputAction m_Character_Interact;
     public struct CharacterActions
     {
         private @InputLevers m_Wrapper;
@@ -770,6 +803,7 @@ public partial class @InputLevers: IInputActionCollection2, IDisposable
         public InputAction @Movement => m_Wrapper.m_Character_Movement;
         public InputAction @Look => m_Wrapper.m_Character_Look;
         public InputAction @RunBoost => m_Wrapper.m_Character_RunBoost;
+        public InputAction @Interact => m_Wrapper.m_Character_Interact;
         public InputActionMap Get() { return m_Wrapper.m_Character; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -788,6 +822,9 @@ public partial class @InputLevers: IInputActionCollection2, IDisposable
             @RunBoost.started += instance.OnRunBoost;
             @RunBoost.performed += instance.OnRunBoost;
             @RunBoost.canceled += instance.OnRunBoost;
+            @Interact.started += instance.OnInteract;
+            @Interact.performed += instance.OnInteract;
+            @Interact.canceled += instance.OnInteract;
         }
 
         private void UnregisterCallbacks(ICharacterActions instance)
@@ -801,6 +838,9 @@ public partial class @InputLevers: IInputActionCollection2, IDisposable
             @RunBoost.started -= instance.OnRunBoost;
             @RunBoost.performed -= instance.OnRunBoost;
             @RunBoost.canceled -= instance.OnRunBoost;
+            @Interact.started -= instance.OnInteract;
+            @Interact.performed -= instance.OnInteract;
+            @Interact.canceled -= instance.OnInteract;
         }
 
         public void RemoveCallbacks(ICharacterActions instance)
@@ -941,6 +981,7 @@ public partial class @InputLevers: IInputActionCollection2, IDisposable
         void OnMovement(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);
         void OnRunBoost(InputAction.CallbackContext context);
+        void OnInteract(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

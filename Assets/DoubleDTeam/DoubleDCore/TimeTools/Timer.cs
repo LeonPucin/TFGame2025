@@ -28,12 +28,12 @@ namespace DoubleDCore.TimeTools
             _coroutineRunner = coroutineRunner;
         }
 
-        public void Start(float time, Action onEnd = null)
+        public void Start(float time, Action<float> onTick = null, Action onEnd = null)
         {
             if (_coroutine != null)
                 Stop();
 
-            _coroutine = _coroutineRunner.StartCoroutine(StartTimer(time, onEnd));
+            _coroutine = _coroutineRunner.StartCoroutine(StartTimer(time, onTick, onEnd));
             _isWorked = true;
 
             Started?.Invoke(time);
@@ -52,8 +52,10 @@ namespace DoubleDCore.TimeTools
 
         private Coroutine _coroutine;
 
-        private IEnumerator StartTimer(float time, Action onEnd)
+        private IEnumerator StartTimer(float time, Action<float> onTick, Action onEnd)
         {
+            float initialTime = time;
+
             RemainingTime = time;
 
             while (RemainingTime >= 0)
@@ -69,6 +71,8 @@ namespace DoubleDCore.TimeTools
                 };
 
                 RemainingTime -= pastTime;
+
+                onTick?.Invoke(1 - RemainingTime / initialTime);
 
                 if (RemainingTime > 0)
                     continue;
