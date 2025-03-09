@@ -26,8 +26,136 @@ public partial class @InputLevers: IInputActionCollection2, IDisposable
         {
             ""name"": ""Character"",
             ""id"": ""0f94cfe9-7738-41c0-a4af-9da4fa2f44da"",
-            ""actions"": [],
-            ""bindings"": []
+            ""actions"": [
+                {
+                    ""name"": ""Movement"",
+                    ""type"": ""Value"",
+                    ""id"": ""b72a90d2-ebb5-4054-be77-b96910a52d26"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Look"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""8c623499-45bd-4651-9c71-b378342047c7"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""RunBoost"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""c2e8f60b-6c7c-48e5-ae99-775b667efacd"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""230997b0-2853-4ea6-9ad4-170e52f89866"",
+                    ""path"": ""<Keyboard>/shift"",
+                    ""interactions"": ""Hold"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RunBoost"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""2D Vector"",
+                    ""id"": ""cb0c818d-3e8a-402a-b169-06429e9f3972"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""959c73d5-6df8-4723-9507-471b47da0472"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""ccea27ca-bd35-449c-91e0-1d66a82db843"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""8add6d3b-35b4-4ab8-a683-03f6a77e9406"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""832be61c-e569-4c10-a12f-ff1b9d1eff82"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6c470868-5581-4ee9-af0c-1ea9687c6e58"",
+                    ""path"": ""<Gamepad>/rightStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""Look"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e37a5f8a-bc60-4693-b757-12d4bdf47ab3"",
+                    ""path"": ""<Pointer>/delta"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse;Touch"",
+                    ""action"": ""Look"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f8419c08-c4c0-48ed-ae5f-81ea2b518943"",
+                    ""path"": ""<Joystick>/{Hatswitch}"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Joystick"",
+                    ""action"": ""Look"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         },
         {
             ""name"": ""UI"",
@@ -550,6 +678,9 @@ public partial class @InputLevers: IInputActionCollection2, IDisposable
 }");
         // Character
         m_Character = asset.FindActionMap("Character", throwIfNotFound: true);
+        m_Character_Movement = m_Character.FindAction("Movement", throwIfNotFound: true);
+        m_Character_Look = m_Character.FindAction("Look", throwIfNotFound: true);
+        m_Character_RunBoost = m_Character.FindAction("RunBoost", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -629,10 +760,16 @@ public partial class @InputLevers: IInputActionCollection2, IDisposable
     // Character
     private readonly InputActionMap m_Character;
     private List<ICharacterActions> m_CharacterActionsCallbackInterfaces = new List<ICharacterActions>();
+    private readonly InputAction m_Character_Movement;
+    private readonly InputAction m_Character_Look;
+    private readonly InputAction m_Character_RunBoost;
     public struct CharacterActions
     {
         private @InputLevers m_Wrapper;
         public CharacterActions(@InputLevers wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Movement => m_Wrapper.m_Character_Movement;
+        public InputAction @Look => m_Wrapper.m_Character_Look;
+        public InputAction @RunBoost => m_Wrapper.m_Character_RunBoost;
         public InputActionMap Get() { return m_Wrapper.m_Character; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -642,10 +779,28 @@ public partial class @InputLevers: IInputActionCollection2, IDisposable
         {
             if (instance == null || m_Wrapper.m_CharacterActionsCallbackInterfaces.Contains(instance)) return;
             m_Wrapper.m_CharacterActionsCallbackInterfaces.Add(instance);
+            @Movement.started += instance.OnMovement;
+            @Movement.performed += instance.OnMovement;
+            @Movement.canceled += instance.OnMovement;
+            @Look.started += instance.OnLook;
+            @Look.performed += instance.OnLook;
+            @Look.canceled += instance.OnLook;
+            @RunBoost.started += instance.OnRunBoost;
+            @RunBoost.performed += instance.OnRunBoost;
+            @RunBoost.canceled += instance.OnRunBoost;
         }
 
         private void UnregisterCallbacks(ICharacterActions instance)
         {
+            @Movement.started -= instance.OnMovement;
+            @Movement.performed -= instance.OnMovement;
+            @Movement.canceled -= instance.OnMovement;
+            @Look.started -= instance.OnLook;
+            @Look.performed -= instance.OnLook;
+            @Look.canceled -= instance.OnLook;
+            @RunBoost.started -= instance.OnRunBoost;
+            @RunBoost.performed -= instance.OnRunBoost;
+            @RunBoost.canceled -= instance.OnRunBoost;
         }
 
         public void RemoveCallbacks(ICharacterActions instance)
@@ -783,6 +938,9 @@ public partial class @InputLevers: IInputActionCollection2, IDisposable
     public UIActions @UI => new UIActions(this);
     public interface ICharacterActions
     {
+        void OnMovement(InputAction.CallbackContext context);
+        void OnLook(InputAction.CallbackContext context);
+        void OnRunBoost(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

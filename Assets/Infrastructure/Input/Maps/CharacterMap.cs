@@ -1,4 +1,5 @@
 ﻿using DoubleDCore.Periphery.Base;
+using UnityEngine;
 
 namespace Infrastructure.Input.Maps
 {
@@ -14,11 +15,17 @@ namespace Infrastructure.Input.Maps
         protected override void Activate()
         {
             _inputControls.Character.Enable();
+
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
         }
 
         protected override void Deactivate()
         {
             _inputControls.Character.Disable();
+
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
         }
     }
 }
