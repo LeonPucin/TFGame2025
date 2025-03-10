@@ -3,9 +3,9 @@ using DoubleDCore.EventActions;
 using DoubleDCore.Localization.Base;
 using DoubleDCore.UI;
 using DoubleDCore.UI.Base;
-using Game.Source.Interactive;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Localization;
 using UnityEngine.UI;
 using Zenject;
 
@@ -61,7 +61,7 @@ namespace Game.Source.UI.Pages
         private async UniTask SetText()
         {
             _interactiveObjectName.text =
-                await _localizationService.GetTranslation(_context.InteractiveInfo.Name.TableEntryReference);
+                await _localizationService.GetTranslation(_context.Name.TableEntryReference);
         }
 
         private void OnInteractProgress(float newValue)
@@ -72,12 +72,12 @@ namespace Game.Source.UI.Pages
 
     public class InteractiveObjectPageArgument
     {
-        public readonly InteractiveInfo InteractiveInfo;
+        public readonly LocalizedString Name;
         public readonly ActionReference<float> InteractProgress;
 
-        public InteractiveObjectPageArgument(InteractiveInfo interactiveInfo, ActionReference<float> interactProgress)
+        public InteractiveObjectPageArgument(LocalizedString name, ActionReference<float> interactProgress)
         {
-            InteractiveInfo = interactiveInfo;
+            Name = name;
             InteractProgress = interactProgress;
         }
     }

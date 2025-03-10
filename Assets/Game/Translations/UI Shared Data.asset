@@ -14,7 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_TableCollectionName: UI
   m_TableCollectionNameGuidString: 5fe3cbed07d66864c95f8de882845bdb
-  m_Entries: []
+  m_Entries:
+  - m_Id: 3303376824557568
+    m_Key: ThrowTip
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

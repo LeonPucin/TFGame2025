@@ -26,6 +26,10 @@ MonoBehaviour:
     m_Localized: Cube two
     m_Metadata:
       m_Items: []
+  - m_Id: 319139603275776
+    m_Localized: Suitcase
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

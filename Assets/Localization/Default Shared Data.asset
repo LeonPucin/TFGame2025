@@ -23,6 +23,10 @@ MonoBehaviour:
     m_Key: Cube2
     m_Metadata:
       m_Items: []
+  - m_Id: 319139603275776
+    m_Key: Suitcase
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

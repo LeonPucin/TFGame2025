@@ -62,6 +62,15 @@ public partial class @InputLevers: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": ""Hold"",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Throw"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""ddb2ac26-e337-4304-b004-d120bfd45a51"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Hold"",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -183,6 +192,17 @@ public partial class @InputLevers: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d0d5ecc0-930b-427b-a86f-cc7ae568fcf0"",
+                    ""path"": ""<Keyboard>/x"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Throw"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -713,6 +733,7 @@ public partial class @InputLevers: IInputActionCollection2, IDisposable
         m_Character_Look = m_Character.FindAction("Look", throwIfNotFound: true);
         m_Character_RunBoost = m_Character.FindAction("RunBoost", throwIfNotFound: true);
         m_Character_Interact = m_Character.FindAction("Interact", throwIfNotFound: true);
+        m_Character_Throw = m_Character.FindAction("Throw", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -796,6 +817,7 @@ public partial class @InputLevers: IInputActionCollection2, IDisposable
     private readonly InputAction m_Character_Look;
     private readonly InputAction m_Character_RunBoost;
     private readonly InputAction m_Character_Interact;
+    private readonly InputAction m_Character_Throw;
     public struct CharacterActions
     {
         private @InputLevers m_Wrapper;
@@ -804,6 +826,7 @@ public partial class @InputLevers: IInputActionCollection2, IDisposable
         public InputAction @Look => m_Wrapper.m_Character_Look;
         public InputAction @RunBoost => m_Wrapper.m_Character_RunBoost;
         public InputAction @Interact => m_Wrapper.m_Character_Interact;
+        public InputAction @Throw => m_Wrapper.m_Character_Throw;
         public InputActionMap Get() { return m_Wrapper.m_Character; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -825,6 +848,9 @@ public partial class @InputLevers: IInputActionCollection2, IDisposable
             @Interact.started += instance.OnInteract;
             @Interact.performed += instance.OnInteract;
             @Interact.canceled += instance.OnInteract;
+            @Throw.started += instance.OnThrow;
+            @Throw.performed += instance.OnThrow;
+            @Throw.canceled += instance.OnThrow;
         }
 
         private void UnregisterCallbacks(ICharacterActions instance)
@@ -841,6 +867,9 @@ public partial class @InputLevers: IInputActionCollection2, IDisposable
             @Interact.started -= instance.OnInteract;
             @Interact.performed -= instance.OnInteract;
             @Interact.canceled -= instance.OnInteract;
+            @Throw.started -= instance.OnThrow;
+            @Throw.performed -= instance.OnThrow;
+            @Throw.canceled -= instance.OnThrow;
         }
 
         public void RemoveCallbacks(ICharacterActions instance)
@@ -982,6 +1011,7 @@ public partial class @InputLevers: IInputActionCollection2, IDisposable
         void OnLook(InputAction.CallbackContext context);
         void OnRunBoost(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
+        void OnThrow(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

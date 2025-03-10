@@ -5,7 +5,7 @@ using DoubleDCore.PhysicsTools.Casting.Raycasting;
 using DoubleDCore.TimeTools;
 using DoubleDCore.UI.Base;
 using Game.Source.Extensions;
-using Game.Source.Interactive;
+using Game.Source.Items.Base;
 using Game.Source.UI.Pages;
 using Infrastructure.Input;
 using UnityEngine;
@@ -14,13 +14,14 @@ using Zenject;
 
 namespace Game.Source.Character
 {
-    public class CharacterRay : MonoBehaviour, ITargetListener<IInteractiveObject>
+    public class CharacterRay : MonoBehaviour, ITargetListener<ISelectableObject>
     {
         [SerializeField] private CinemachineVirtualCamera _camera;
         [Range(0f, 100f), SerializeField] private float _rayDistance = 5f;
         [SerializeField] private LayerMask _rayMask;
 
         private RayCastInfo _rayCastInfo;
+        private Player _player;
 
         private IUIManager _uiManager;
         private IRayCaster _rayCaster;
@@ -38,6 +39,8 @@ namespace Game.Source.Character
 
         private void Awake()
         {
+            _player = GetComponent<Player>();
+
             _rayCastInfo = new RayCastInfo(new Ray(transform.position, transform.forward), _rayDistance, _rayMask);
             _rayCaster.AddListener(this, _rayCastInfo);
         }
@@ -74,8 +77,12 @@ namespace Game.Source.Character
             if (_currentTarget == null || _interactionTimer.IsWorked)
                 return;
 
-            _interactionTimer.Start(_currentTarget.InteractiveInfo.InteractDelay,
-                progress => { _onInteractProgress?.Invoke(progress); }, () => { _currentTarget.Interact(); });
+            if (_currentTarget is not IInteractiveObject interactiveTarget)
+                return;
+
+            _interactionTimer.Start(interactiveTarget.InteractDelay,
+                progress => { _onInteractProgress?.Invoke(progress); },
+                () => { interactiveTarget.Interact(_player); });
         }
 
         private void OnInteractCanceled(InputAction.CallbackContext obj)
@@ -83,36 +90,36 @@ namespace Game.Source.Character
             CancelInteract();
         }
 
-        private IInteractiveObject _currentTarget;
-
+        private ISelectableObject _currentTarget;
         private readonly ActionReference<float> _onInteractProgress = new();
-
         private Timer _interactionTimer;
 
-        public IInteractiveObject GetTarget(Collider target)
+        public ISelectableObject GetTarget(Collider target)
         {
-            return target.GetComponent<IInteractiveObject>();
+            return target.GetComponent<ISelectableObject>();
         }
 
-        public bool IsTarget(IInteractiveObject target)
+        public bool IsTarget(ISelectableObject target)
         {
             return true;
         }
 
-        public void OnCastEnter(IInteractiveObject target)
+        public void OnCastEnter(ISelectableObject target)
         {
             _currentTarget = target;
+            _currentTarget.Select();
 
-            var argument = new InteractiveObjectPageArgument(target.InteractiveInfo, _onInteractProgress);
-
+            var argument = new InteractiveObjectPageArgument(target.Name, _onInteractProgress);
             _uiManager.OpenPage<InteractiveObjectPage, InteractiveObjectPageArgument>(argument);
         }
 
-        public void OnCastExit(IInteractiveObject target)
+        public void OnCastExit(ISelectableObject target)
         {
             CancelInteract();
 
+            _currentTarget?.Deselect();
             _currentTarget = null;
+
             _uiManager.ClosePage<InteractiveObjectPage>();
         }
 
