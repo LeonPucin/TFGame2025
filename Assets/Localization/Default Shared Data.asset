@@ -27,6 +27,10 @@ MonoBehaviour:
     m_Key: Suitcase
     m_Metadata:
       m_Items: []
+  - m_Id: 371530339966976
+    m_Key: Door
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

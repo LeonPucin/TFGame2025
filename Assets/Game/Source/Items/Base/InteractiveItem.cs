@@ -9,5 +9,13 @@ namespace Game.Source.Items.Base
         public float InteractDelay => _interactDelay;
 
         public abstract void Interact(object interactor);
+
+        public override void Select()
+        {
+        }
+
+        public override void Deselect()
+        {
+        }
     }
 }

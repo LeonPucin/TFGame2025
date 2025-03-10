@@ -30,6 +30,10 @@ MonoBehaviour:
     m_Localized: Suitcase
     m_Metadata:
       m_Items: []
+  - m_Id: 371530339966976
+    m_Localized: Door
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
