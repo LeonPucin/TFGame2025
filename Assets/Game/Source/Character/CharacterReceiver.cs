@@ -6,6 +6,7 @@ using UnityEngine;
 
 namespace Game.Source.Character
 {
+    [RequireComponent(typeof(Player))]
     public class CharacterReceiver : MonoBehaviour
     {
         [SerializeField] private Transform _rightHandItemContainer;
@@ -15,18 +16,23 @@ namespace Game.Source.Character
         [Range(0f, 100f), SerializeField] private float _dropForce = 10f;
         [SerializeField] private Transform _dropContainer;
 
-        public readonly Receiver<TakeableItem> Receiver = new();
+        private Receiver<TakeableItem> _receiver;
+
+        private void Awake()
+        {
+            _receiver = GetComponent<Player>().Receiver;
+        }
 
         private void OnEnable()
         {
-            Receiver.OnPut += ReceiverOnPut;
-            Receiver.OnTake += ReceiverOnTake;
+            _receiver.OnPut += ReceiverOnPut;
+            _receiver.OnTake += ReceiverOnTake;
         }
 
         private void OnDisable()
         {
-            Receiver.OnPut -= ReceiverOnPut;
-            Receiver.OnTake -= ReceiverOnTake;
+            _receiver.OnPut -= ReceiverOnPut;
+            _receiver.OnTake -= ReceiverOnTake;
         }
 
         private void ReceiverOnPut(TakeableItem obj)

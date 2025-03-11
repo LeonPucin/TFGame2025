@@ -16,6 +16,7 @@ namespace DoubleDCore.Debugging
         public RectTransform RectTransform => _rectTransform;
 
         public Vector3 WorldPoint;
+        public float Factor;
 
         private Camera _camera;
 
@@ -36,7 +37,7 @@ namespace DoubleDCore.Debugging
 
             Vector3 newPosition = _camera.WorldToScreenPoint(WorldPoint);
             _text.enabled = newPosition.z > 0;
-            RectTransform.anchoredPosition = _camera.WorldToScreenPoint(WorldPoint);
+            RectTransform.anchoredPosition = _camera.WorldToScreenPoint(WorldPoint) / Factor;
         }
     }
 }

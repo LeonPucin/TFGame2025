@@ -5,5 +5,9 @@
         public void Put(TObject obj);
 
         public TObject Take();
+
+        public TObject Peek();
+
+        public void TransferFrom(IReceiver<TObject> receiver);
     }
 }

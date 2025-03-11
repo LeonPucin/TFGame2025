@@ -17,12 +17,18 @@ namespace Game.Source.Items.Base
         {
             Rigidbody = GetComponent<Rigidbody>();
             Collider = GetComponent<Collider>();
+
+            TakeableAwake();
         }
 
         public override void Interact(object interactor)
         {
             if (interactor is IReceiver<TakeableItem> receiver)
                 receiver.Put(this);
+        }
+
+        protected virtual void TakeableAwake()
+        {
         }
 
         public virtual void Take()

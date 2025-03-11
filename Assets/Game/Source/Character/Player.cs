@@ -1,4 +1,7 @@
-﻿using DoubleDCore.UI.Base;
+﻿using Cinemachine;
+using DoubleDCore.UI.Base;
+using Game.Source.Base;
+using Game.Source.Extensions;
 using Game.Source.Items.Base;
 using Game.Source.Storage;
 using Game.Source.UI.Pages;
@@ -9,13 +12,24 @@ using Zenject;
 
 namespace Game.Source.Character
 {
-    [RequireComponent(typeof(CharacterReceiver))]
-    public class Player : MonoBehaviour, IReceiver<TakeableItem>
+    public class Player : MonoBehaviour, IReceiver<TakeableItem>, IGunActor
     {
-        private CharacterReceiver _characterReceiver;
+        [SerializeField] private CinemachineVirtualCamera _camera;
+
+        public readonly Receiver<TakeableItem> Receiver = new();
 
         private InputLevers _input;
         private IUIManager _uiManager;
+
+        public Ray ShootRay
+        {
+            get
+            {
+                var origin = _camera.GetPosition();
+                var direction = _camera.GetForward();
+                return new Ray(origin, direction);
+            }
+        }
 
         [Inject]
         private void Init(InputService inputService, IUIManager uiManager)
@@ -24,30 +38,71 @@ namespace Game.Source.Character
             _uiManager = uiManager;
         }
 
-        private void Awake()
+        private void OnEnable()
         {
-            _characterReceiver = GetComponent<CharacterReceiver>();
+            Receiver.OnPut += OnPut;
+            Receiver.OnTake += OnTake;
         }
 
-        public void Put(TakeableItem obj)
+        private void OnDisable()
         {
-            _characterReceiver.Receiver.Put(obj);
+            Receiver.OnPut -= OnPut;
+            Receiver.OnTake -= OnTake;
+        }
 
+        private void OnPut(TakeableItem obj)
+        {
             _input.Character.Throw.started += OnThrow;
             _uiManager.OpenPage<ThrowTipPage>();
+
+            if (obj is ActionItem actionItem)
+            {
+                _input.Character.Action.started += OnAction;
+                _uiManager.OpenPage<ActionTipPage, ActionItem>(actionItem);
+            }
         }
 
-        public TakeableItem Take()
+        private void OnTake(TakeableItem obj)
         {
             _input.Character.Throw.started -= OnThrow;
             _uiManager.ClosePage<ThrowTipPage>();
 
-            return _characterReceiver.Receiver.Take();
+            if (obj is ActionItem actionItem)
+            {
+                _input.Character.Action.started -= OnAction;
+                _uiManager.ClosePage<ActionTipPage>();
+            }
+        }
+
+        public void Put(TakeableItem obj)
+        {
+            Receiver.Put(obj);
+        }
+
+        public TakeableItem Take()
+        {
+            return Receiver.Take();
+        }
+
+        public TakeableItem Peek()
+        {
+            return Receiver.Peek();
+        }
+
+        public void TransferFrom(IReceiver<TakeableItem> receiver)
+        {
+            Receiver.TransferFrom(receiver);
         }
 
         private void OnThrow(InputAction.CallbackContext obj)
         {
             Take();
+        }
+
+        private void OnAction(InputAction.CallbackContext obj)
+        {
+            if (Peek() is ActionItem actionItem)
+                actionItem.Action(this);
         }
     }
 }

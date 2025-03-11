@@ -8,8 +8,8 @@ namespace DoubleDCore.Debugging
 {
     public class ScreenDebug : MonoBehaviour
     {
-        public DebugMessageText _prefab;
-        public RectTransform _canvas;
+        [SerializeField] private DebugMessageText _prefab;
+        [SerializeField] private Canvas _canvas;
 
         private static readonly Dictionary<int, DebugMessageText> Texts = new();
 
@@ -23,7 +23,7 @@ namespace DoubleDCore.Debugging
             _timersFactory = timersFactory;
         }
 
-        public void Awake()
+        private void Awake()
         {
             if (_instance != null)
             {
@@ -43,6 +43,7 @@ namespace DoubleDCore.Debugging
 
             debugText.Text.text = message.Color(color);
             debugText.RectTransform.localScale = scale * Vector3.one;
+            debugText.Factor = _instance._canvas.scaleFactor;
             debugText.WorldPoint = worldPoint;
 
             if (key == -1)
@@ -70,7 +71,9 @@ namespace DoubleDCore.Debugging
 
         private static DebugMessageText CreateDebugText()
         {
-            var init = Instantiate(_instance._prefab, Vector3.zero, Quaternion.identity, _instance._canvas);
+            var init =
+                Instantiate(_instance._prefab, Vector3.zero, Quaternion.identity, _instance._canvas.transform);
+
             init.Initialize(_timersFactory.Create(TimeBindingType.RealTime));
 
             return init;

@@ -14,5 +14,10 @@ namespace Game.Source.Extensions
         {
             return camera.State.FinalOrientation * Vector3.right;
         }
+
+        public static Vector3 GetPosition(this CinemachineVirtualCamera camera)
+        {
+            return camera.State.FinalPosition;
+        }
     }
 }

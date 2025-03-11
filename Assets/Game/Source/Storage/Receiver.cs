@@ -26,7 +26,12 @@ namespace Game.Source.Storage
             return temp;
         }
 
-        public void TransferFrom(Receiver<TObject> receiver)
+        public TObject Peek()
+        {
+            return Object;
+        }
+
+        public void TransferFrom(IReceiver<TObject> receiver)
         {
             var temp = receiver.Take();
             Put(temp);
