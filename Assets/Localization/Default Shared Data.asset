@@ -15,20 +15,16 @@ MonoBehaviour:
   m_TableCollectionName: Default
   m_TableCollectionNameGuidString: 9ba648390e132fe45a4432b0a4663c98
   m_Entries:
-  - m_Id: 4025515761664
-    m_Key: Cube1
-    m_Metadata:
-      m_Items: []
-  - m_Id: 4210060943360
-    m_Key: Cube2
-    m_Metadata:
-      m_Items: []
   - m_Id: 319139603275776
     m_Key: Suitcase
     m_Metadata:
       m_Items: []
   - m_Id: 371530339966976
     m_Key: Door
+    m_Metadata:
+      m_Items: []
+  - m_Id: 743555478839296
+    m_Key: NoTranslation
     m_Metadata:
       m_Items: []
   m_Metadata:

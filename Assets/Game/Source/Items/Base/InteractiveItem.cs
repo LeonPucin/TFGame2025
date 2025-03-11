@@ -8,6 +8,8 @@ namespace Game.Source.Items.Base
 
         public float InteractDelay => _interactDelay;
 
+        public abstract bool CanInteract(object interactor);
+
         public abstract void Interact(object interactor);
 
         public override void Select()

@@ -27,6 +27,11 @@ namespace Game.Source.Items.Base
                 receiver.Put(this);
         }
 
+        public override bool CanInteract(object interactor)
+        {
+            return interactor is IReceiver<TakeableItem>;
+        }
+
         protected virtual void TakeableAwake()
         {
         }

@@ -26,6 +26,11 @@ namespace Game.Source.Items
             ChangeState(_isOpenStart, true);
         }
 
+        public override bool CanInteract(object interactor)
+        {
+            return true;
+        }
+
         public override void Interact(object interactor)
         {
             if (interactor is Player _)

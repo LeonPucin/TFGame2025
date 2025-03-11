@@ -18,20 +18,16 @@ MonoBehaviour:
   m_Metadata:
     m_Items: []
   m_TableData:
-  - m_Id: 4025515761664
-    m_Localized: Cube 1
-    m_Metadata:
-      m_Items: []
-  - m_Id: 4210060943360
-    m_Localized: Cube two
-    m_Metadata:
-      m_Items: []
   - m_Id: 319139603275776
     m_Localized: Suitcase
     m_Metadata:
       m_Items: []
   - m_Id: 371530339966976
     m_Localized: Door
+    m_Metadata:
+      m_Items: []
+  - m_Id: 743555478839296
+    m_Localized: No translation
     m_Metadata:
       m_Items: []
   references:

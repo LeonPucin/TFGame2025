@@ -80,6 +80,9 @@ namespace Game.Source.Character
             if (_currentTarget is not IInteractiveObject interactiveTarget)
                 return;
 
+            if (interactiveTarget.CanInteract(_player) == false)
+                return;
+
             _interactionTimer.Start(interactiveTarget.InteractDelay,
                 progress => { _onInteractProgress?.Invoke(progress); },
                 () => { interactiveTarget.Interact(_player); });

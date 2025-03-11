@@ -1,4 +1,5 @@
 ﻿using Cinemachine;
+using Cysharp.Threading.Tasks;
 using Game.Source.Extensions;
 using Game.Source.Items.Base;
 using Game.Source.Storage;
@@ -53,16 +54,19 @@ namespace Game.Source.Character
             obj.Take();
         }
 
-        private void ReceiverOnTake(TakeableItem obj)
+        private async void ReceiverOnTake(TakeableItem obj)
         {
             obj.transform.parent = _dropContainer;
-            obj.transform.localPosition = Vector3.zero;
-            obj.transform.localRotation = Quaternion.identity;
-
             obj.transform.parent = null;
 
             obj.Rigidbody.isKinematic = false;
             obj.Rigidbody.interpolation = RigidbodyInterpolation.Interpolate;
+
+            await UniTask.WaitForFixedUpdate();
+
+            obj.Rigidbody.MovePosition(_dropContainer.position);
+            obj.Rigidbody.MoveRotation(_dropContainer.rotation);
+
             obj.Rigidbody.AddForce(_camera.GetForward() * _dropForce, ForceMode.Impulse);
 
             obj.Collider.enabled = true;
