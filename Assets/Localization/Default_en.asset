@@ -30,6 +30,10 @@ MonoBehaviour:
     m_Localized: No translation
     m_Metadata:
       m_Items: []
+  - m_Id: 1021972526915584
+    m_Localized: Seeds bag
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

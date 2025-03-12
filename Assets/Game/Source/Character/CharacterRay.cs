@@ -1,4 +1,5 @@
 ﻿using Cinemachine;
+using Cysharp.Threading.Tasks;
 using DoubleDCore.EventActions;
 using DoubleDCore.PhysicsTools.Casting;
 using DoubleDCore.PhysicsTools.Casting.Raycasting;
@@ -19,6 +20,7 @@ namespace Game.Source.Character
         [SerializeField] private CinemachineVirtualCamera _camera;
         [Range(0f, 100f), SerializeField] private float _rayDistance = 5f;
         [SerializeField] private LayerMask _rayMask;
+        [Range(0.01f, 5f), SerializeField] private float _reinterpretDelay = 0.05f;
 
         private RayCastInfo _rayCastInfo;
         private Player _player;
@@ -72,7 +74,7 @@ namespace Game.Source.Character
             _rayCastInfo.Ray = new Ray(_camera.State.FinalPosition, _camera.GetForward());
         }
 
-        private void OnInteract(InputAction.CallbackContext obj)
+        private void OnInteract(InputAction.CallbackContext obj = default)
         {
             if (_currentTarget == null || _interactionTimer.IsWorked)
                 return;
@@ -80,12 +82,24 @@ namespace Game.Source.Character
             if (_currentTarget is not IInteractiveObject interactiveTarget)
                 return;
 
-            if (interactiveTarget.CanInteract(_player) == false)
+            bool canInteract = interactiveTarget.CanInteract(_player);
+            var argument = new InteractiveObjectPageArgument(interactiveTarget.Name, canInteract, _onInteractProgress);
+            _uiManager.OpenPage<InteractiveObjectPage, InteractiveObjectPageArgument>(argument);
+
+            if (canInteract == false)
                 return;
 
             _interactionTimer.Start(interactiveTarget.InteractDelay,
                 progress => { _onInteractProgress?.Invoke(progress); },
-                () => { interactiveTarget.Interact(_player); });
+                async () =>
+                {
+                    interactiveTarget.Interact(_player);
+
+                    await UniTask.WaitForSeconds(_reinterpretDelay);
+
+                    if (_input.Character.Interact.IsPressed())
+                        OnInteract();
+                });
         }
 
         private void OnInteractCanceled(InputAction.CallbackContext obj)
@@ -112,7 +126,10 @@ namespace Game.Source.Character
             _currentTarget = target;
             _currentTarget.Select();
 
-            var argument = new InteractiveObjectPageArgument(target.Name, _onInteractProgress);
+            bool canInteract = _currentTarget is IInteractiveObject interactiveTarget
+                               && interactiveTarget.CanInteract(_player);
+
+            var argument = new InteractiveObjectPageArgument(target.Name, canInteract, _onInteractProgress);
             _uiManager.OpenPage<InteractiveObjectPage, InteractiveObjectPageArgument>(argument);
         }
 

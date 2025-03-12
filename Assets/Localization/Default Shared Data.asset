@@ -27,6 +27,10 @@ MonoBehaviour:
     m_Key: NoTranslation
     m_Metadata:
       m_Items: []
+  - m_Id: 1021972526915584
+    m_Key: SeedsBag
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

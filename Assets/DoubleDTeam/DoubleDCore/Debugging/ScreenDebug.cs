@@ -32,7 +32,6 @@ namespace DoubleDCore.Debugging
             }
 
             _instance = this;
-            DontDestroyOnLoad(gameObject);
         }
 
         public static void Log(int key, string message, Vector3 worldPoint, Color color = default,

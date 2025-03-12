@@ -104,15 +104,13 @@ namespace DoubleDCore.UI
                 return;
             }
 
-            if (PageIsOpened<TPage>())
-            {
-                Debug.LogWarning($"Page {typeof(TPage).Name} already open");
-                return;
-            }
-
             var page = GetPage<TPage>();
 
+            if (PageIsOpened<TPage>())
+                page.Close();
+
             page.Open();
+
             _pages[typeof(TPage)].IsOpened = true;
             PageOpened?.Invoke(page);
         }
@@ -125,15 +123,13 @@ namespace DoubleDCore.UI
                 return;
             }
 
-            if (PageIsOpened<TPage>())
-            {
-                Debug.LogWarning($"Page {typeof(TPage).Name} already open");
-                return;
-            }
-
             var page = GetPage<TPage>();
 
+            if (PageIsOpened<TPage>())
+                page.Close();
+
             page.Open(context);
+
             _pages[typeof(TPage)].IsOpened = true;
             PageOpened?.Invoke(page);
         }

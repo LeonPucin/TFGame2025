@@ -14,7 +14,8 @@ namespace Game.Source.UI.Pages
     public class InteractiveObjectPage : MonoPage, IPayloadPage<InteractiveObjectPageArgument>
     {
         [SerializeField] private TMP_Text _interactiveObjectName;
-        [SerializeField] private Image _pointer;
+        [SerializeField] private Image _selectPointer;
+        [SerializeField] private Image _interactPointer;
 
         private InteractiveObjectPageArgument _context;
 
@@ -41,6 +42,9 @@ namespace Game.Source.UI.Pages
             _context.InteractProgress.AddListener(OnInteractProgress);
             OnInteractProgress(0);
 
+            _selectPointer.enabled = _context.CanInteract == false;
+            _interactPointer.enabled = _context.CanInteract;
+
             SetCanvasState(true);
         }
 
@@ -66,18 +70,21 @@ namespace Game.Source.UI.Pages
 
         private void OnInteractProgress(float newValue)
         {
-            _pointer.fillAmount = 1 - newValue;
+            _interactPointer.fillAmount = 1 - newValue;
         }
     }
 
     public class InteractiveObjectPageArgument
     {
         public readonly LocalizedString Name;
+        public readonly bool CanInteract;
         public readonly ActionReference<float> InteractProgress;
 
-        public InteractiveObjectPageArgument(LocalizedString name, ActionReference<float> interactProgress)
+        public InteractiveObjectPageArgument(LocalizedString name, bool canInteract,
+            ActionReference<float> interactProgress)
         {
             Name = name;
+            CanInteract = canInteract;
             InteractProgress = interactProgress;
         }
     }
