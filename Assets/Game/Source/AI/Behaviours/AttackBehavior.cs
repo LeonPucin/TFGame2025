@@ -12,8 +12,7 @@ namespace Game.Source.AI.Behaviours
 
         protected IDamageable[] GetTargets(Vector3 position, float radius)
         {
-            var count = Physics.OverlapSphereNonAlloc(position, radius, Buffer,
-                TargetLayer, QueryTriggerInteraction.Ignore);
+            var count = Physics.OverlapSphereNonAlloc(position, radius, Buffer, TargetLayer);
 
             var result = new List<IDamageable>();
 

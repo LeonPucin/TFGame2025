@@ -8,7 +8,7 @@ using UnityEngine;
 namespace Game.Source.Entity
 {
     [RequireComponent(typeof(Collider))]
-    public class Door : InteractiveItem, ITarget
+    public class Door : InteractiveItem, ITarget, IDamageable
     {
         [Range(0f, 30f), SerializeField] private float _interactDelay = 0f;
         [SerializeField] private Transform _door;
@@ -17,6 +17,8 @@ namespace Game.Source.Entity
         [Range(0.01f, 50f), SerializeField] private float _openTime = 5f;
 
         [Min(1), SerializeField] private int _weight = 5;
+        [Min(0), SerializeField] private float _startStrength = 50f;
+        [SerializeField] private AudioClip _doorHit;
 
         private bool _isOpen;
 
@@ -29,6 +31,18 @@ namespace Game.Source.Entity
             _collider = GetComponent<Collider>();
 
             ChangeState(_isOpenStart, true);
+
+            _health = new Health(_startStrength);
+        }
+
+        private void OnEnable()
+        {
+            _health.Died += Kill;
+        }
+
+        private void OnDisable()
+        {
+            _health.Died -= Kill;
         }
 
         public override float InteractDelay => _interactDelay;
@@ -66,5 +80,19 @@ namespace Game.Source.Entity
         public int Weight => _isOpen ? 0 : _weight;
 
         public Team Team => Team.None;
+
+        private Health _health;
+
+        public void TakeDamage(float damage)
+        {
+            _health.ApplyDamage(damage);
+
+            AudioSource.PlayClipAtPoint(_doorHit, transform.position);
+        }
+
+        public void Kill()
+        {
+            Destroy(gameObject);
+        }
     }
 }

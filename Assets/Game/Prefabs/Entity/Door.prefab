@@ -83,6 +83,8 @@ MonoBehaviour:
   _openAngle: {x: 0, y: 90, z: 0}
   _openTime: 0.4
   _weight: 5
+  _startStrength: 50
+  _doorHit: {fileID: 8300000, guid: f0bedd4adb2f95f43aa079c74157db9e, type: 3}
   references:
     version: 2
     RefIds: []

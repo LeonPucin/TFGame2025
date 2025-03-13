@@ -10,6 +10,7 @@ namespace Game.Source.Entity
     {
         [SerializeField] private float _takeDelay;
         [Min(0), SerializeField] private float _maturationTime;
+        [SerializeField] private Enemy _monsterPrefab;
         [SerializeField] private List<Produce> _products;
 
         private Queue<Produce> _produceQueue;
@@ -20,6 +21,8 @@ namespace Game.Source.Entity
         public bool IsHarvested => ProductCount == 0;
 
         public int ProductCount => _produceQueue.Count;
+
+        public Enemy MonsterPrefab => _monsterPrefab;
 
         private float _currentMaturationTime;
 

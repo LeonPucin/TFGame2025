@@ -1,10 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Cysharp.Threading.Tasks;
+using DoubleDCore.Fabrics.Base;
 using Game.Source.Entity;
 using Game.Source.Items.Base;
 using Game.Source.Storage;
 using UnityEngine;
+using Zenject;
 
 namespace Game.Source.Items
 {
@@ -62,6 +64,26 @@ namespace Game.Source.Items
             plant.transform.position = GetLocalPositionForProduce(info.Index);
             plant.transform.rotation = Quaternion.identity;
             plant.transform.SetParent(transform);
+        }
+
+        private GasManager _gasManager;
+        private IPrefabFabric _prefabFabric;
+
+        [Inject]
+        private void Init(GasManager gasManager, IPrefabFabric prefabFabric)
+        {
+            _gasManager = gasManager;
+            _prefabFabric = prefabFabric;
+        }
+
+        private void OnEnable()
+        {
+            _gasManager.GasEvent += OnGasEvent;
+        }
+
+        private void OnDisable()
+        {
+            _gasManager.GasEvent -= OnGasEvent;
         }
 
         private void Start()
@@ -156,6 +178,20 @@ namespace Game.Source.Items
             float z = -size.z / 2f + cellDepth * (rowIndex + 0.5f);
 
             return new Vector3(x, y, z) + _fillArea.center;
+        }
+
+        private void OnGasEvent()
+        {
+            foreach (var plantInfo in _content)
+            {
+                var monster = _prefabFabric.Create(plantInfo.Plant.MonsterPrefab);
+                monster.transform.position = plantInfo.Plant.transform.position;
+                monster.transform.rotation = Quaternion.identity;
+
+                Destroy(plantInfo.Plant.gameObject);
+            }
+
+            _content.Clear();
         }
 
         private class PlantInfo

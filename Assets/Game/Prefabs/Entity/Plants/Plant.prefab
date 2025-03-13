@@ -95,6 +95,7 @@ MonoBehaviour:
     m_LocalVariables: []
   _takeDelay: 0.3
   _maturationTime: 15
+  _monsterPrefab: {fileID: 7631515540109124210, guid: 1035af6940625d34c856f87ccccc81f7, type: 3}
   _products:
   - {fileID: 9169823891258907082}
   - {fileID: 2299485434755340543}
