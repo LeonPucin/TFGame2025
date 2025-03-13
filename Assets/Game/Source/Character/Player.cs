@@ -3,6 +3,7 @@ using DoubleDCore.UI.Base;
 using Game.Source.Base;
 using Game.Source.Extensions;
 using Game.Source.Items.Base;
+using Game.Source.Models;
 using Game.Source.Storage;
 using Game.Source.UI.Pages;
 using Infrastructure.Input;
@@ -12,9 +13,11 @@ using Zenject;
 
 namespace Game.Source.Character
 {
-    public class Player : MonoBehaviour, IReceiver<TakeableItem>, IGunActor
+    public class Player : MonoBehaviour, IReceiver<TakeableItem>, IGunActor, ITarget
     {
         [SerializeField] private CinemachineVirtualCamera _camera;
+        [SerializeField] private Team _team = Team.Red;
+        [Min(1), SerializeField] private int _neuronWeight = 10;
 
         public readonly Receiver<TakeableItem> Receiver = new();
 
@@ -57,7 +60,9 @@ namespace Game.Source.Character
 
             if (obj is ActionItem actionItem)
             {
-                _input.Character.Action.started += OnAction;
+                _input.Character.Action.started += OnStartAction;
+                _input.Character.Action.canceled += OnEndAction;
+
                 _uiManager.OpenPage<ActionTipPage, ActionItem>(actionItem);
             }
         }
@@ -69,7 +74,11 @@ namespace Game.Source.Character
 
             if (obj is ActionItem actionItem)
             {
-                _input.Character.Action.started -= OnAction;
+                _input.Character.Action.started -= OnStartAction;
+                _input.Character.Action.canceled -= OnEndAction;
+
+                EndAction(actionItem);
+
                 _uiManager.ClosePage<ActionTipPage>();
             }
         }
@@ -99,10 +108,27 @@ namespace Game.Source.Character
             Take();
         }
 
-        private void OnAction(InputAction.CallbackContext obj)
+        private void OnStartAction(InputAction.CallbackContext obj)
         {
             if (Peek() is ActionItem actionItem)
-                actionItem.Action(this);
+                actionItem.StartAction(this);
         }
+
+        private void OnEndAction(InputAction.CallbackContext obj)
+        {
+            if (Peek() is ActionItem actionItem)
+                EndAction(actionItem);
+        }
+
+        private void EndAction(ActionItem actionItem)
+        {
+            actionItem.StopAction(this);
+        }
+
+        public Vector3 Position => transform.position;
+
+        public int Weight => _neuronWeight;
+
+        public Team Team => _team;
     }
 }

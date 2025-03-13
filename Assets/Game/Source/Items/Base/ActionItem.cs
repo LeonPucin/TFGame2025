@@ -9,6 +9,8 @@ namespace Game.Source.Items.Base
 
         public LocalizedString ActionDescription => _actionDescription;
 
-        public abstract void Action(object actor);
+        public abstract void StartAction(object actor);
+
+        public abstract void StopAction(object actor);
     }
 }

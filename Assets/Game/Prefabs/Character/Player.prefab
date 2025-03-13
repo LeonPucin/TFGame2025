@@ -354,7 +354,7 @@ GameObject:
   - component: {fileID: 7973900867602906320}
   - component: {fileID: 8756752031394994078}
   - component: {fileID: 6926402510538352205}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -469,6 +469,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _camera: {fileID: 3081109925251705150}
+  _team: 2
+  _neuronWeight: 10
 --- !u!114 &7973900867602906320
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -501,7 +503,8 @@ MonoBehaviour:
   _rayDistance: 5
   _rayMask:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 385
+  _reinterpretDelay: 0.05
 --- !u!114 &6926402510538352205
 MonoBehaviour:
   m_ObjectHideFlags: 0

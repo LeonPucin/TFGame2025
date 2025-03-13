@@ -6,6 +6,8 @@ namespace Game.Source.Items.Base
     {
         public LocalizedString ActionDescription { get; }
 
-        public void Action(object actor);
+        public void StartAction(object actor);
+        
+        public void StopAction(object actor);
     }
 }

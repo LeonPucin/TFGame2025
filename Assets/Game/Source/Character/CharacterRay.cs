@@ -30,13 +30,11 @@ namespace Game.Source.Character
         private InputLevers _input;
 
         [Inject]
-        private void Init(IUIManager uiManager, IRayCasterFabric rayCasterFabric, InputService inputService,
-            ITimersFactory timersFactory)
+        private void Init(IUIManager uiManager, IRayCasterFabric rayCasterFabric, InputService inputService)
         {
             _uiManager = uiManager;
             _rayCaster = rayCasterFabric.Create();
             _input = inputService.GetInputProvider();
-            _interactionTimer = timersFactory.Create(TimeBindingType.ScaledTime);
         }
 
         private void Awake()
@@ -95,9 +93,11 @@ namespace Game.Source.Character
                 {
                     interactiveTarget.Interact(_player);
 
+                    var temp = interactiveTarget;
+
                     await UniTask.WaitForSeconds(_reinterpretDelay);
 
-                    if (_input.Character.Interact.IsPressed())
+                    if (_currentTarget != null && _currentTarget.Equals(temp) && _input.Character.Interact.IsPressed())
                         OnInteract();
                 });
         }
@@ -109,7 +109,7 @@ namespace Game.Source.Character
 
         private ISelectableObject _currentTarget;
         private readonly ActionReference<float> _onInteractProgress = new();
-        private Timer _interactionTimer;
+        private readonly Timer _interactionTimer = new(TimeBindingType.ScaledTime);
 
         public ISelectableObject GetTarget(Collider target)
         {

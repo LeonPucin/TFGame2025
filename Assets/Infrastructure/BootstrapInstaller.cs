@@ -103,7 +103,6 @@ namespace Infrastructure
         private void RegisterFactories()
         {
             Container.Bind<IPrefabFabric>().To<PrefabFabric>().AsSingle();
-            Container.Bind<ITimersFactory>().To<TimersFabric>().AsSingle();
             Container.Bind<IRayCasterFabric>().To<RayCasterFabric>().AsSingle();
         }
 

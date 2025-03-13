@@ -195,6 +195,17 @@
                 },
                 {
                     "name": "",
+                    "id": "0ddfda53-bf32-499b-aa77-0f64f1c1f0ca",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Throw",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "c90fc550-464a-463d-9264-33f6d64f6a2a",
                     "path": "<Keyboard>/space",
                     "interactions": "",

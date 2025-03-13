@@ -10,5 +10,10 @@ namespace Game.Source.Items
         {
             ScreenDebug.Log(777, $"Damage taken: {damage}", transform.position, color: Color.red, 10f);
         }
+
+        public void Kill()
+        {
+            ScreenDebug.Log(777, "Target killed", transform.position, color: Color.red, 10f);
+        }
     }
 }

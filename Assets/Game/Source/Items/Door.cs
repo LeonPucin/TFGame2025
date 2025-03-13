@@ -1,17 +1,21 @@
 ﻿using DG.Tweening;
+using Game.Source.Base;
 using Game.Source.Character;
 using Game.Source.Items.Base;
+using Game.Source.Models;
 using UnityEngine;
 
 namespace Game.Source.Items
 {
     [RequireComponent(typeof(Collider))]
-    public class Door : InteractiveItem
+    public class Door : InteractiveItem, ITarget
     {
         [SerializeField] private Transform _door;
         [SerializeField] private bool _isOpenStart = false;
         [SerializeField] private Vector3 _openAngle = new(0, 90, 0);
         [Range(0.01f, 50f), SerializeField] private float _openTime = 5f;
+
+        [Min(1), SerializeField] private int _weight = 5;
 
         private bool _isOpen;
 
@@ -53,5 +57,11 @@ namespace Game.Source.Items
             if (isForce)
                 _tween.Complete(true);
         }
+
+        public Vector3 Position => transform.position;
+
+        public int Weight => _isOpen ? 0 : _weight;
+
+        public Team Team => Team.None;
     }
 }

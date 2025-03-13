@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using DoubleDCore.Extensions;
 using DoubleDCore.TimeTools;
 using UnityEngine;
-using Zenject;
 
 namespace DoubleDCore.Debugging
 {
@@ -14,14 +13,6 @@ namespace DoubleDCore.Debugging
         private static readonly Dictionary<int, DebugMessageText> Texts = new();
 
         private static ScreenDebug _instance;
-
-        private static ITimersFactory _timersFactory;
-
-        [Inject]
-        private void Init(ITimersFactory timersFactory)
-        {
-            _timersFactory = timersFactory;
-        }
 
         private void Awake()
         {
@@ -73,7 +64,7 @@ namespace DoubleDCore.Debugging
             var init =
                 Instantiate(_instance._prefab, Vector3.zero, Quaternion.identity, _instance._canvas.transform);
 
-            init.Initialize(_timersFactory.Create(TimeBindingType.RealTime));
+            init.Initialize(new Timer(TimeBindingType.RealTime));
 
             return init;
         }
