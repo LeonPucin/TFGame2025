@@ -69,7 +69,10 @@ namespace Game.Source.Character
 
         private void FixedUpdate()
         {
-            _rayCastInfo.Ray = new Ray(_camera.State.FinalPosition, _camera.GetForward());
+            Vector3 forward = _camera.GetForward();
+            Vector3 newOrigin = _camera.GetPosition();
+
+            _rayCastInfo.Ray = new Ray(newOrigin, forward);
         }
 
         private void OnInteract(InputAction.CallbackContext obj = default)

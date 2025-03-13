@@ -3,7 +3,7 @@ using DoubleDCore.Storage.Base;
 
 namespace DoubleDCore.Economy.Base
 {
-    public abstract class Wallet<TValueType> : ISaveObject
+    public abstract class Wallet<TValueType> : IWallet<TValueType>, ISaveObject
     {
         /// <summary>
         /// Event that is called when value in wallet is changed.

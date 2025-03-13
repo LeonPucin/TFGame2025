@@ -15,7 +15,7 @@ MonoBehaviour:
   _friendlyFire: 0
   _targetMask:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 1280
   _shootMask:
     serializedVersion: 2
-    m_Bits: 385
+    m_Bits: 1409

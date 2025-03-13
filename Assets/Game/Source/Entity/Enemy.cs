@@ -1,5 +1,6 @@
 ﻿using DoubleDCore.Debugging;
 using Game.Source.Entity.Base;
+using Game.Source.Models;
 using UnityEngine;
 
 namespace Game.Source.Entity
