@@ -33,7 +33,8 @@ namespace Infrastructure
 {
     public class BootstrapInstaller : MonoInstaller, IInitializable
     {
-        [SerializeField] private string _nextSceneIndex = "MainMenu";
+        [SerializeField] private string _mainMenuName = "MainMenu";
+        [SerializeField] private string _gameloopName = "Gameloop";
         [SerializeField] private EventSystem _eventSystem;
         [SerializeField] private CoroutineRunner _coroutineRunner;
 
@@ -65,7 +66,9 @@ namespace Infrastructure
             var gameStateMachine = Container.Resolve<GameStateMachine>();
 
             gameStateMachine.BindState(Container.Instantiate<BootstrapState>);
+            gameStateMachine.BindState(Container.Instantiate<MainMenuState>);
             gameStateMachine.BindState(Container.Instantiate<GameLoopState>);
+            gameStateMachine.BindState(Container.Instantiate<EndPointState>);
 
             return gameStateMachine;
         }
@@ -82,7 +85,7 @@ namespace Infrastructure
 
         private void RegisterUtilities()
         {
-            Container.Bind<BootstrapInfo>().FromInstance(new BootstrapInfo(_nextSceneIndex));
+            Container.Bind<BootstrapInfo>().FromInstance(new BootstrapInfo(_mainMenuName, _gameloopName));
             Container.Bind<ICoroutineRunner>().To<CoroutineRunner>().FromInstance(_coroutineRunner).AsSingle();
 
             Container.Bind<IUIManager>().To<UIManager>().AsSingle();

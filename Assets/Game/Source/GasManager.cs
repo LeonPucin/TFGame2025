@@ -1,7 +1,10 @@
 ﻿using System;
 using Cysharp.Threading.Tasks;
 using DoubleDCore.TimeTools;
+using DoubleDCore.UI.Base;
+using Game.Source.UI.Pages;
 using UnityEngine;
+using Zenject;
 
 namespace Game.Source
 {
@@ -16,7 +19,15 @@ namespace Game.Source
 
         private readonly Timer _timer = new(TimeBindingType.ScaledTime);
 
+        private IUIManager _uiManager;
+
         public Timer Timer => _timer;
+
+        [Inject]
+        private void Init(IUIManager uiManager)
+        {
+            _uiManager = uiManager;
+        }
 
         private void Start()
         {
@@ -30,6 +41,8 @@ namespace Game.Source
 
         public void StopGas()
         {
+            _uiManager.ClosePage<GasAlertPage>();
+
             SetInterval();
             GasEventFinished?.Invoke();
         }
@@ -37,6 +50,8 @@ namespace Game.Source
         public async void TurnGas()
         {
             _timer.Stop();
+
+            _uiManager.OpenPage<GasAlertPage>();
 
             GasEventStarting?.Invoke();
 

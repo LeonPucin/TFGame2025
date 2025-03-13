@@ -35,6 +35,10 @@ MonoBehaviour:
     m_Key: Tray
     m_Metadata:
       m_Items: []
+  - m_Id: 1449891778781184
+    m_Key: Resign
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

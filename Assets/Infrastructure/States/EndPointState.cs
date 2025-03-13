@@ -1,4 +1,5 @@
 ﻿using DoubleDCore.Automation.Base;
+using UnityEngine;
 
 namespace Infrastructure.States
 {
@@ -6,6 +7,7 @@ namespace Infrastructure.States
     {
         public void Enter()
         {
+            Application.Quit();
         }
 
         public void Exit()

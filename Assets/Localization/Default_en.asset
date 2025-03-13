@@ -38,6 +38,10 @@ MonoBehaviour:
     m_Localized: Tray
     m_Metadata:
       m_Items: []
+  - m_Id: 1449891778781184
+    m_Localized: Resign
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

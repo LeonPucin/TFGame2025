@@ -19,6 +19,18 @@ MonoBehaviour:
     m_Key: ThrowTip
     m_Metadata:
       m_Items: []
+  - m_Id: 4388119141933056
+    m_Key: StartGame
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4388285689356288
+    m_Key: EndGame
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4395341494345728
+    m_Key: GasAlert
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

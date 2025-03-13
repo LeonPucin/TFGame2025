@@ -23,7 +23,7 @@ namespace Infrastructure.States
             _resourcesContainer.AddResource(new ScriptableConfigsResource());
             _resourcesContainer.AddResource(new ItemsResource());
 
-            _stateMachine.Enter<GameLoopState>();
+            _stateMachine.Enter<MainMenuState>();
         }
 
         public void Exit()

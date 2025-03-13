@@ -22,6 +22,18 @@ MonoBehaviour:
     m_Localized: Throw away
     m_Metadata:
       m_Items: []
+  - m_Id: 4388119141933056
+    m_Localized: Play
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4388285689356288
+    m_Localized: Exit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4395341494345728
+    m_Localized: '!Gas!'
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

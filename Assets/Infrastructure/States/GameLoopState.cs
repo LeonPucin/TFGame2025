@@ -47,7 +47,7 @@ namespace Infrastructure.States
             _localeSave = _diContainer.Instantiate<LocaleSave>();
             _saveController.Subscribe(_localeSave);
 
-            SceneManager.LoadScene(_bootstrapInfo.NextSceneName, LoadSceneMode.Single);
+            SceneManager.LoadScene(_bootstrapInfo.GameloopSceneName, LoadSceneMode.Single);
 
             _inputServices.SwitchMap<CharacterMap>();
 

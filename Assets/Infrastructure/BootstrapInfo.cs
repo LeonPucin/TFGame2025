@@ -2,11 +2,13 @@
 {
     public class BootstrapInfo
     {
-        public readonly string NextSceneName;
+        public readonly string MainMenuSceneName;
+        public readonly string GameloopSceneName;
 
-        public BootstrapInfo(string nextSceneName)
+        public BootstrapInfo(string mainMenuSceneName, string gameloopSceneName)
         {
-            NextSceneName = nextSceneName;
+            MainMenuSceneName = mainMenuSceneName;
+            GameloopSceneName = gameloopSceneName;
         }
     }
 }
