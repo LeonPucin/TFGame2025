@@ -1,4 +1,5 @@
 ﻿using Game.Source.Items.Base;
+using Game.Source.Storage;
 using UnityEngine;
 
 namespace Game.Source.Items
@@ -9,5 +10,19 @@ namespace Game.Source.Items
 
         public int StartCost => _startCost;
         public float Mass => Rigidbody.mass;
+
+        public override void Interact(object interactor)
+        {
+            if (interactor is IReceiver<TakeableItem> receiver && receiver.Peek() is ProduceTray tray)
+            {
+                if (tray.Content.Count < tray.Capacity)
+                {
+                    tray.AddContent(this);
+                    return;
+                }
+            }
+
+            base.Interact(interactor);
+        }
     }
 }

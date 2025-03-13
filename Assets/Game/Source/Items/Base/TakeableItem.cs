@@ -16,7 +16,7 @@ namespace Game.Source.Items.Base
         private Collider[] _colliders;
 
         public override float InteractDelay => _takeDelay;
-        
+
         public float TakeDelay => _takeDelay;
 
         protected virtual void Awake()

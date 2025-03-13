@@ -1,15 +1,14 @@
-﻿using DoubleDCore.Automation.Base;
+﻿using Cysharp.Threading.Tasks;
+using DoubleDCore.Automation.Base;
 using DoubleDCore.Configuration;
 using DoubleDCore.Localization.Base;
 using DoubleDCore.Storage.Base;
-using Game.Source;
-using Game.Source.AI;
-using Game.Source.Base;
+using DoubleDCore.UI.Base;
 using Game.Source.Configs;
 using Game.Source.Models;
+using Game.Source.UI.Pages;
 using Infrastructure.Input;
 using Infrastructure.Input.Maps;
-using UnityEngine;
 using UnityEngine.SceneManagement;
 using Zenject;
 
@@ -22,16 +21,18 @@ namespace Infrastructure.States
         private readonly DiContainer _diContainer;
         private readonly InputService _inputServices;
         private readonly IResourcesContainer _resourcesContainer;
+        private readonly IUIManager _uiManager;
 
         [Inject]
         public GameLoopState(BootstrapInfo bootstrapInfo, ISaveController saveController, DiContainer diContainer,
-            InputService inputServices, IResourcesContainer resourcesContainer)
+            InputService inputServices, IResourcesContainer resourcesContainer, IUIManager uiManager)
         {
             _bootstrapInfo = bootstrapInfo;
             _saveController = saveController;
             _diContainer = diContainer;
             _inputServices = inputServices;
             _resourcesContainer = resourcesContainer;
+            _uiManager = uiManager;
         }
 
         private LocaleSave _localeSave;
@@ -49,6 +50,8 @@ namespace Infrastructure.States
             SceneManager.LoadScene(_bootstrapInfo.NextSceneName, LoadSceneMode.Single);
 
             _inputServices.SwitchMap<CharacterMap>();
+
+            Start();
         }
 
         public void Exit()
@@ -67,6 +70,13 @@ namespace Infrastructure.States
             teamMatrix.SetInteraction(Team.Red, Team.None, true);
 
             return teamMatrix;
+        }
+
+        private async void Start()
+        {
+            await UniTask.NextFrame();
+
+            _uiManager.OpenPage<DefaultPointerPage>();
         }
     }
 }

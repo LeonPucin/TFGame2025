@@ -131,6 +131,9 @@ namespace Game.Source.Character
 
             var argument = new InteractiveObjectPageArgument(target.Name, canInteract, _onInteractProgress);
             _uiManager.OpenPage<InteractiveObjectPage, InteractiveObjectPageArgument>(argument);
+
+            if (_uiManager.PageIsOpened<DefaultPointerPage>())
+                _uiManager.ClosePage<DefaultPointerPage>();
         }
 
         public void OnCastExit(ISelectableObject target)
@@ -141,6 +144,7 @@ namespace Game.Source.Character
             _currentTarget = null;
 
             _uiManager.ClosePage<InteractiveObjectPage>();
+            _uiManager.OpenPage<DefaultPointerPage>();
         }
 
         private void CancelInteract()

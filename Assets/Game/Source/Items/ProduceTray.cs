@@ -16,33 +16,20 @@ namespace Game.Source.Items
 
         private bool _isProduceSelected;
 
-        private int Capacity => _grid.x * _grid.y * _grid.z;
+        public int Capacity => _grid.x * _grid.y * _grid.z;
 
-        public IEnumerable<Produce> Content => _content;
+        public IReadOnlyList<Produce> Content => _content;
 
         public override float InteractDelay => _isProduceSelected ? _putProduceDelay : TakeDelay;
 
-        public async override void Interact(object interactor)
+        public override void Interact(object interactor)
         {
             if (interactor is IReceiver<TakeableItem> receiver && receiver.Peek() is Produce produce)
             {
                 if (_content.Count < Capacity)
                 {
                     receiver.Take();
-                    _content.Add(produce);
-
-                    _isProduceSelected = false;
-
-                    await UniTask.WaitForFixedUpdate();
-
-                    Rigidbody.mass += produce.Mass;
-
-                    produce.transform.SetParent(_fillArea.transform);
-                    produce.transform.localPosition = GetLocalPositionForProduce();
-                    produce.transform.localRotation = Quaternion.identity;
-
-                    produce.SetKinematic(true);
-
+                    AddContent(produce);
                     return;
                 }
             }
@@ -58,6 +45,23 @@ namespace Game.Source.Items
         public override void Deselect(object selector)
         {
             _isProduceSelected = false;
+        }
+
+        public async void AddContent(Produce produce)
+        {
+            _content.Add(produce);
+
+            _isProduceSelected = false;
+
+            await UniTask.WaitForFixedUpdate();
+
+            Rigidbody.mass += produce.Mass;
+
+            produce.transform.SetParent(_fillArea.transform);
+            produce.transform.localPosition = GetLocalPositionForProduce();
+            produce.transform.localRotation = Quaternion.identity;
+
+            produce.SetKinematic(true);
         }
 
         private Vector3 GetLocalPositionForProduce()
