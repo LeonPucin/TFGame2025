@@ -10,6 +10,7 @@ namespace Game.Source.Items
     [RequireComponent(typeof(Collider))]
     public class Door : InteractiveItem, ITarget
     {
+        [Range(0f, 30f), SerializeField] private float _interactDelay = 0f;
         [SerializeField] private Transform _door;
         [SerializeField] private bool _isOpenStart = false;
         [SerializeField] private Vector3 _openAngle = new(0, 90, 0);
@@ -29,6 +30,8 @@ namespace Game.Source.Items
 
             ChangeState(_isOpenStart, true);
         }
+
+        public override float InteractDelay => _interactDelay;
 
         public override bool CanInteract(object interactor)
         {

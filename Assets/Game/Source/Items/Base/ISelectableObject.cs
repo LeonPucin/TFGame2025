@@ -6,8 +6,8 @@ namespace Game.Source.Items.Base
     {
         public LocalizedString Name { get; }
 
-        public void Select();
+        public void Select(object selector);
 
-        public void Deselect();
+        public void Deselect(object selector);
     }
 }

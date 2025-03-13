@@ -9,8 +9,8 @@ namespace Game.Source.Items.Base
 
         public LocalizedString Name => _name;
 
-        public abstract void Select();
+        public abstract void Select(object selector);
 
-        public abstract void Deselect();
+        public abstract void Deselect(object selector);
     }
 }

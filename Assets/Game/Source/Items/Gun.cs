@@ -57,7 +57,8 @@ namespace Game.Source.Items
 
         private void Fire(IGunActor gunActor)
         {
-            Physics.Raycast(gunActor.ShootRay, out var hit, _shootDistance, _shootLayerMask);
+            Physics.Raycast(gunActor.ShootRay, out var hit, _shootDistance, _shootLayerMask,
+                QueryTriggerInteraction.Ignore);
 
             if (hit.collider == null || hit.collider.TryGetComponent(out IDamageable damageable) == false)
                 return;

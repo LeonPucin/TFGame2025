@@ -124,7 +124,7 @@ namespace Game.Source.Character
         public void OnCastEnter(ISelectableObject target)
         {
             _currentTarget = target;
-            _currentTarget.Select();
+            _currentTarget.Select(_player);
 
             bool canInteract = _currentTarget is IInteractiveObject interactiveTarget
                                && interactiveTarget.CanInteract(_player);
@@ -137,7 +137,7 @@ namespace Game.Source.Character
         {
             CancelInteract();
 
-            _currentTarget?.Deselect();
+            _currentTarget?.Deselect(_player);
             _currentTarget = null;
 
             _uiManager.ClosePage<InteractiveObjectPage>();

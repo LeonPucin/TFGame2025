@@ -6,6 +6,10 @@ namespace Game.Source.Items
 {
     public class Patch : InteractiveItem
     {
+        [Range(0f, 30f), SerializeField] private float _interactDelay = 0.5f;
+
+        public override float InteractDelay => _interactDelay;
+
         public override bool CanInteract(object interactor)
         {
             if (interactor is not IReceiver<TakeableItem> receiver)
