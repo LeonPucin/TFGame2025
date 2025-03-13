@@ -27,11 +27,15 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 743555478839296
-    m_Localized: No translation
+    m_Localized: Tray dispenser
     m_Metadata:
       m_Items: []
   - m_Id: 1021972526915584
     m_Localized: Seeds bag
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1326528863395840
+    m_Localized: Tray
     m_Metadata:
       m_Items: []
   references:

@@ -102,7 +102,7 @@ namespace Infrastructure
 
         private void RegisterFactories()
         {
-            Container.Bind<IPrefabFabric>().To<PrefabFabric>().AsSingle();
+            Container.Bind<IPrefabFabric>().To<ZenjectPrefabFabric>().AsSingle();
             Container.Bind<IRayCasterFabric>().To<RayCasterFabric>().AsSingle();
         }
 

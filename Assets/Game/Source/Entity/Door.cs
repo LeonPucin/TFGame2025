@@ -5,7 +5,7 @@ using Game.Source.Items.Base;
 using Game.Source.Models;
 using UnityEngine;
 
-namespace Game.Source.Items
+namespace Game.Source.Entity
 {
     [RequireComponent(typeof(Collider))]
     public class Door : InteractiveItem, ITarget

@@ -33,7 +33,7 @@ namespace Game.Source.Character
             if (_characterController.velocity.magnitude > 0.1f)
                 collision.rigidbody.AddForce(_characterController.velocity, ForceMode.VelocityChange);
 
-            collision.rigidbody.AddForce(kickDirection * _kickPower, ForceMode.Force);
+            collision.rigidbody.AddForce(kickDirection * _kickPower, ForceMode.Impulse);
         }
     }
 }

@@ -73,7 +73,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8300c59b0ce43b9848e1b0759369e97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _kickPower: 1
+  _kickPower: 10
   _upKickDegree: 10
   _characterController: {fileID: 4807004174403174928}
 --- !u!135 &3502565742320502336

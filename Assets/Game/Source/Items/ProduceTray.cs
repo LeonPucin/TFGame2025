@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
+using DoubleDCore.Identification;
 using Game.Source.Items.Base;
 using Game.Source.Storage;
 using UnityEngine;
 
 namespace Game.Source.Items
 {
-    public class ProduceTray : TakeableItem
+    public class ProduceTray : TakeableItem, IIdentifying
     {
         [Range(0f, 30f), SerializeField] private float _putProduceDelay = 0.5f;
         [SerializeField] private Vector3Int _grid = new(3, 1, 2);
@@ -16,11 +17,14 @@ namespace Game.Source.Items
 
         private bool _isProduceSelected;
 
+        public string ID => Name.TableEntryReference.KeyId.ToString();
+
         public int Capacity => _grid.x * _grid.y * _grid.z;
 
         public IReadOnlyList<Produce> Content => _content;
 
         public override float InteractDelay => _isProduceSelected ? _putProduceDelay : TakeDelay;
+
 
         public override void Interact(object interactor)
         {

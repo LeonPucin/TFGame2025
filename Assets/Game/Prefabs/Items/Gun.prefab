@@ -98,14 +98,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _name:
     m_TableReference:
-      m_TableCollectionName: GUID:9ba648390e132fe45a4432b0a4663c98
+      m_TableCollectionName: 
     m_TableEntryReference:
-      m_KeyId: 743555478839296
+      m_KeyId: 0
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
-  _interactDelay: 0.5
+  _takeDelay: 0.5
   _takeableType: 1
   _actionDescription:
     m_TableReference:

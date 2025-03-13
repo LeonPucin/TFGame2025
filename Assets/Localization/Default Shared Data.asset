@@ -24,11 +24,15 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 743555478839296
-    m_Key: NoTranslation
+    m_Key: TrayDispenser
     m_Metadata:
       m_Items: []
   - m_Id: 1021972526915584
     m_Key: SeedsBag
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1326528863395840
+    m_Key: Tray
     m_Metadata:
       m_Items: []
   m_Metadata:
