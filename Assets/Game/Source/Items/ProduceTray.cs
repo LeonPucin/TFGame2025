@@ -21,6 +21,8 @@ namespace Game.Source.Items
 
         public int Capacity => _grid.x * _grid.y * _grid.z;
 
+        public bool IsFull => _content.Count >= Capacity;
+
         public IReadOnlyList<Produce> Content => _content;
 
         public override float InteractDelay => _isProduceSelected ? _putProduceDelay : TakeDelay;
@@ -30,7 +32,7 @@ namespace Game.Source.Items
         {
             if (interactor is IReceiver<TakeableItem> receiver && receiver.Peek() is Produce produce)
             {
-                if (_content.Count < Capacity)
+                if (IsFull == false)
                 {
                     receiver.Take();
                     AddContent(produce);

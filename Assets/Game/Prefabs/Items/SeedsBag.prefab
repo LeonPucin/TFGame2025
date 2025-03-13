@@ -105,9 +105,10 @@ MonoBehaviour:
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
-  _interactDelay: 0.5
+  _takeDelay: 0.5
   _takeableType: 1
-  _startSeedsAmount: 10
+  _startSeedsAmount: 5
+  _plantPrefab: {fileID: 4827877890542675844, guid: 4e95dc95f0b763f4eb415fc747079c5d, type: 3}
   references:
     version: 2
     RefIds: []
