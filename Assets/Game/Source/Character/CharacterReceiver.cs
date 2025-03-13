@@ -1,5 +1,6 @@
 ﻿using Cinemachine;
 using Cysharp.Threading.Tasks;
+using Game.Source.Base;
 using Game.Source.Extensions;
 using Game.Source.Items.Base;
 using Game.Source.Storage;
@@ -17,12 +18,14 @@ namespace Game.Source.Character
         [Range(0f, 100f), SerializeField] private float _dropForce = 10f;
         [SerializeField] private Transform _dropContainer;
 
+        private Player _player;
         private Receiver<TakeableItem> _receiver;
         private CharacterController _characterController;
 
         private void Awake()
         {
-            _receiver = GetComponent<Player>().Receiver;
+            _player = GetComponent<Player>();
+            _receiver = _player.Receiver;
             _characterController = GetComponent<CharacterController>();
         }
 
@@ -50,6 +53,9 @@ namespace Game.Source.Character
             obj.transform.localRotation = Quaternion.identity;
 
             obj.SetKinematic(true);
+
+            if (obj is IValuableObject valuableObject)
+                valuableObject.Owner = _player;
 
             obj.Take();
         }

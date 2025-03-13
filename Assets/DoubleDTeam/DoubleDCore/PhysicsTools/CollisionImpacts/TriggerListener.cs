@@ -30,7 +30,13 @@ namespace DoubleDCore.PhysicsTools.CollisionImpacts
         }
 
         protected abstract bool IsTarget(Collider col, out TTargetType target);
-        protected abstract void OnTriggerStart(TTargetType target);
-        protected abstract void OnTriggerEnd(TTargetType target);
+
+        protected virtual void OnTriggerStart(TTargetType target)
+        {
+        }
+
+        protected virtual void OnTriggerEnd(TTargetType target)
+        {
+        }
     }
 }

@@ -225,7 +225,7 @@ MonoBehaviour:
     m_LocalVariables: []
   _takeDelay: 0.3
   _takeableType: 1
-  _startCost: 100
+  _startCost: 10
   references:
     version: 2
     RefIds: []

@@ -1,13 +1,16 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Cysharp.Threading.Tasks;
+using DoubleDCore.Economy.Base;
 using DoubleDCore.Identification;
+using Game.Source.Base;
 using Game.Source.Items.Base;
 using Game.Source.Storage;
 using UnityEngine;
 
 namespace Game.Source.Items
 {
-    public class ProduceTray : TakeableItem, IIdentifying
+    public class ProduceTray : TakeableItem, IIdentifying, IValuableObject
     {
         [Range(0f, 30f), SerializeField] private float _putProduceDelay = 0.5f;
         [SerializeField] private Vector3Int _grid = new(3, 1, 2);
@@ -18,6 +21,10 @@ namespace Game.Source.Items
         private bool _isProduceSelected;
 
         public string ID => Name.TableEntryReference.KeyId.ToString();
+
+        public int Cost => _content.Sum(c => c.Cost);
+
+        public IWallet<int> Owner { get; set; }
 
         public int Capacity => _grid.x * _grid.y * _grid.z;
 

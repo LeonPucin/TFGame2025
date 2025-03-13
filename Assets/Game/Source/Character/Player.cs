@@ -51,6 +51,11 @@ namespace Game.Source.Character
             _wallet = GetComponent<CharacterWallet>();
         }
 
+        private void Start()
+        {
+            _uiManager.OpenPage<WalletPage, IWallet<int>>(this);
+        }
+
         private void OnEnable()
         {
             Receiver.OnPut += OnPut;
@@ -141,18 +146,25 @@ namespace Game.Source.Character
 
         public Team Team => _team;
 
-        public event Action<int, int> ValueChanged; // not called use, use character wallet instead
+        public event Action<int, int> ValueChanged;
 
         public int Value => _wallet.Value;
 
         public void Add(int value, object provider = null)
         {
             _wallet.Add(value, provider);
+
+            ValueChanged?.Invoke(_wallet.Value, value);
         }
 
         public bool TrySpend(int value, object provider = null)
         {
-            return _wallet.TrySpend(value, provider);
+            bool isSuccess = _wallet.TrySpend(value, provider);
+
+            if (isSuccess)
+                ValueChanged?.Invoke(_wallet.Value, -value);
+
+            return isSuccess;
         }
     }
 }
