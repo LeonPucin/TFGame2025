@@ -62,8 +62,8 @@ namespace Game.Source.Character
 
         private async void ReceiverOnTake(TakeableItem obj)
         {
-            obj.transform.parent = _dropContainer;
-            obj.transform.parent = null;
+            obj.transform.SetParent(_dropContainer);
+            obj.transform.SetParent(null);
 
             obj.SetKinematic(false);
 

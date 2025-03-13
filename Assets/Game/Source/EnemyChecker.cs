@@ -1,11 +1,10 @@
 ﻿using Cysharp.Threading.Tasks;
-using Game.Source;
 using Game.Source.Entity;
 using Game.Source.Models;
 using UnityEngine;
 using Zenject;
 
-namespace Game
+namespace Game.Source
 {
     public class EnemyChecker : MonoBehaviour
     {

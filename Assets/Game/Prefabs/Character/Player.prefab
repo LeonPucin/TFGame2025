@@ -451,7 +451,6 @@ GameObject:
   - component: {fileID: 7973900867602906320}
   - component: {fileID: 8756752031394994078}
   - component: {fileID: 6926402510538352205}
-  - component: {fileID: 336080581799962290}
   m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
@@ -568,8 +567,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _camera: {fileID: 3081109925251705150}
-  _team: 1
+  _team: 2
   _neuronWeight: 10
+  _startValue: 100
 --- !u!114 &7973900867602906320
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -621,19 +621,6 @@ MonoBehaviour:
   _camera: {fileID: 3081109925251705150}
   _dropForce: 20
   _dropContainer: {fileID: 7123725125287542718}
---- !u!114 &336080581799962290
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7165027126908580625}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 155c7551cebb4698a427624fd5949354, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _startValue: 100
 --- !u!1 &7992260077754011021
 GameObject:
   m_ObjectHideFlags: 0

@@ -61,9 +61,9 @@ namespace Game.Source.Items
 
             _content.Add(info);
 
-            plant.transform.position = GetLocalPositionForProduce(info.Index);
-            plant.transform.rotation = Quaternion.identity;
             plant.transform.SetParent(transform);
+            plant.transform.localPosition = GetLocalPositionForProduce(info.Index);
+            plant.transform.localRotation = Quaternion.identity;
         }
 
         private GasManager _gasManager;
@@ -107,7 +107,7 @@ namespace Game.Source.Items
             _isGrowing = false;
         }
 
-        public List<int> _blackPlantsIndexes = new();
+        private readonly List<int> _blackPlantsIndexes = new();
 
         private async void GrowingCycle()
         {

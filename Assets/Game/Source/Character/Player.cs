@@ -1,5 +1,6 @@
 ﻿using System;
 using Cinemachine;
+using DoubleDCore.Economy;
 using DoubleDCore.Economy.Base;
 using DoubleDCore.UI.Base;
 using Game.Source.Base;
@@ -15,16 +16,15 @@ using Zenject;
 
 namespace Game.Source.Character
 {
-    [RequireComponent(typeof(CharacterWallet))]
     public class Player : MonoBehaviour, IReceiver<TakeableItem>, IGunActor, ITarget, IWallet<int>
     {
         [SerializeField] private CinemachineVirtualCamera _camera;
         [SerializeField] private Team _team = Team.Red;
         [Min(1), SerializeField] private int _neuronWeight = 10;
+        [SerializeField] private int _startValue = 100;
 
         public readonly Receiver<TakeableItem> Receiver = new();
-
-        private CharacterWallet _wallet;
+        private readonly IntegerWallet _wallet = new("none");
 
         private InputLevers _input;
         private IUIManager _uiManager;
@@ -46,14 +46,11 @@ namespace Game.Source.Character
             _uiManager = uiManager;
         }
 
-        private void Awake()
-        {
-            _wallet = GetComponent<CharacterWallet>();
-        }
-
         private void Start()
         {
             _uiManager.OpenPage<WalletPage, IWallet<int>>(this);
+
+            Add(_startValue);
         }
 
         private void OnEnable()

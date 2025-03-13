@@ -332,6 +332,8 @@ MonoBehaviour:
   _team: 1
   _weightNeuron: 5
   _maxHealth: 100
+  _loot: {fileID: 7114262478851538967, guid: 95ed5c85c4234b84d9afbe1403d723e0, type: 3}
+  _lootAmount: 4
 --- !u!114 &4948871538754918975
 MonoBehaviour:
   m_ObjectHideFlags: 0

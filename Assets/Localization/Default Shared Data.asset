@@ -39,6 +39,30 @@ MonoBehaviour:
     m_Key: Resign
     m_Metadata:
       m_Items: []
+  - m_Id: 1460235783888896
+    m_Key: BuySeeds
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1460475689689088
+    m_Key: Gun
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1460975449399296
+    m_Key: Garden
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1461567592849408
+    m_Key: Vegetable
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1461996892446720
+    m_Key: GunAction
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1470691214876672
+    m_Key: Sowing
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
