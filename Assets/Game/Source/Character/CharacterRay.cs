@@ -3,6 +3,7 @@ using Cysharp.Threading.Tasks;
 using DoubleDCore.EventActions;
 using DoubleDCore.PhysicsTools.Casting;
 using DoubleDCore.PhysicsTools.Casting.Raycasting;
+using DoubleDCore.PhysicsTools.Casting.Raycasting.Fabric;
 using DoubleDCore.TimeTools;
 using DoubleDCore.UI.Base;
 using Game.Source.Extensions;
@@ -15,7 +16,7 @@ using Zenject;
 
 namespace Game.Source.Character
 {
-    public class CharacterRay : MonoBehaviour, ITargetListener<ISelectableObject>
+    public class CharacterRay : MonoBehaviour, ITargetListener<ISelectableObject, Collider>
     {
         [SerializeField] private CinemachineVirtualCamera _camera;
         [Range(0f, 100f), SerializeField] private float _rayDistance = 5f;
@@ -26,11 +27,11 @@ namespace Game.Source.Character
         private Player _player;
 
         private IUIManager _uiManager;
-        private IRayCaster _rayCaster;
+        private IRayCaster<Collider> _rayCaster;
         private InputLevers _input;
 
         [Inject]
-        private void Init(IUIManager uiManager, IRayCasterFabric rayCasterFabric, InputService inputService)
+        private void Init(IUIManager uiManager, IRayCasterFabric<Collider> rayCasterFabric, InputService inputService)
         {
             _uiManager = uiManager;
             _rayCaster = rayCasterFabric.Create();

@@ -3,13 +3,13 @@ using UnityEngine;
 
 namespace DoubleDCore.PhysicsTools.CollisionImpacts
 {
-    [RequireComponent(typeof(Collider))]
-    public abstract class TriggerListener<TTargetType> : MonoBehaviour, ITargetListener<TTargetType>
+    [RequireComponent(typeof(Collider2D))]
+    public abstract class TriggerListener2D<TTargetType> : MonoBehaviour, ITargetListener<TTargetType>
     {
         public event Action<TTargetType> TargetEnter;
         public event Action<TTargetType> TargetExit;
 
-        public void OnTriggerEnter(Collider other)
+        public void OnTriggerEnter2D(Collider2D other)
         {
             if (IsTarget(other, out var target) == false)
                 return;
@@ -19,7 +19,7 @@ namespace DoubleDCore.PhysicsTools.CollisionImpacts
             TargetEnter?.Invoke(target);
         }
 
-        public void OnTriggerExit(Collider other)
+        public void OnTriggerExit2D(Collider2D other)
         {
             if (IsTarget(other, out var target) == false)
                 return;
@@ -29,7 +29,7 @@ namespace DoubleDCore.PhysicsTools.CollisionImpacts
             TargetExit?.Invoke(target);
         }
 
-        protected abstract bool IsTarget(Collider col, out TTargetType target);
+        protected abstract bool IsTarget(Collider2D col, out TTargetType target);
 
         protected virtual void OnTriggerStart(TTargetType target)
         {

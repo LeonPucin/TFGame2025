@@ -184,9 +184,8 @@ namespace Game.Source.Items
         {
             foreach (var plantInfo in _content)
             {
-                var monster = _prefabFabric.Create(plantInfo.Plant.MonsterPrefab);
-                monster.transform.position = plantInfo.Plant.transform.position;
-                monster.transform.rotation = Quaternion.identity;
+                var inst = _prefabFabric.Create(plantInfo.Plant.MonsterPrefab, plantInfo.Plant.transform.position,
+                    Quaternion.identity, null);
 
                 Destroy(plantInfo.Plant.gameObject);
             }

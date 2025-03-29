@@ -1,10 +1,8 @@
-﻿using UnityEngine;
-
-namespace DoubleDCore.PhysicsTools.Casting
+﻿namespace DoubleDCore.PhysicsTools.Casting
 {
-    public interface ITargetListener<TTarget>
+    public interface ITargetListener<TTarget, in TColliderType>
     {
-        public TTarget GetTarget(Collider target);
+        public TTarget GetTarget(TColliderType target);
 
         public bool IsTarget(TTarget target);
 

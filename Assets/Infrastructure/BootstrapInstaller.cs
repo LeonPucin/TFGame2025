@@ -11,14 +11,13 @@ using DoubleDCore.Initialization;
 using DoubleDCore.Initialization.Base;
 using DoubleDCore.Localization;
 using DoubleDCore.Localization.Base;
-using DoubleDCore.PhysicsTools.Casting.Raycasting;
-using DoubleDCore.TimeTools;
 using DoubleDCore.Tween;
 using DoubleDCore.Tween.Base;
 using DoubleDCore.UI;
 using DoubleDCore.UI.Base;
 using DoubleDCore.Donation;
 using DoubleDCore.Donation.Base;
+using DoubleDCore.PhysicsTools.Casting.Raycasting.Fabric;
 using DoubleDCore.Storage;
 using DoubleDCore.Storage.Base;
 using Infrastructure.Input;
@@ -89,7 +88,6 @@ namespace Infrastructure
             Container.Bind<ICoroutineRunner>().To<CoroutineRunner>().FromInstance(_coroutineRunner).AsSingle();
 
             Container.Bind<IUIManager>().To<UIManager>().AsSingle();
-            Container.Bind<IRayCaster>().To<RayCaster>().AsSingle();
             Container.Bind<IResourcesContainer>().To<ResourcesContainer>().AsSingle();
             Container.Bind<IGameObjectFinder>().To<GameObjectFinder>().AsSingle();
             Container.Bind<ILocalizationService>().To<DefaultLocalizationService>().AsSingle();
@@ -106,7 +104,7 @@ namespace Infrastructure
         private void RegisterFactories()
         {
             Container.Bind<IPrefabFabric>().To<ZenjectPrefabFabric>().AsSingle();
-            Container.Bind<IRayCasterFabric>().To<RayCasterFabric>().AsSingle();
+            Container.Bind<IRayCasterFabric<Collider>>().To<RayCasterFabric>().AsSingle();
         }
 
         private void RegisterInputService()

@@ -1,11 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using Zenject;
 
 namespace DoubleDCore.PhysicsTools.Casting.Raycasting
 {
-    public class RayCaster : IRayCaster, IFixedTickable
+    public class RayCaster : IRayCaster<Collider>
     {
         private bool _isActive;
 
@@ -17,7 +16,7 @@ namespace DoubleDCore.PhysicsTools.Casting.Raycasting
         {
         }
 
-        public void AddListener<TTarget>(ITargetListener<TTarget> listener, RayCastInfo castInfo)
+        public void AddListener<TTarget>(ITargetListener<TTarget, Collider> listener, RayCastInfo castInfo)
         {
             if (_targetsInfo.Any(t => t.Listener.Equals(listener)))
             {
@@ -28,7 +27,7 @@ namespace DoubleDCore.PhysicsTools.Casting.Raycasting
             _targetsInfo.Add(new TargetListenerInfo<TTarget>(listener, castInfo));
         }
 
-        public void RemoveListener<TTarget>(ITargetListener<TTarget> listener)
+        public void RemoveListener<TTarget>(ITargetListener<TTarget, Collider> listener)
         {
             var info = _targetsInfo.FirstOrDefault(t => t.Listener.Equals(listener));
 
@@ -126,7 +125,7 @@ namespace DoubleDCore.PhysicsTools.Casting.Raycasting
 
         private class TargetListenerInfo<TTarget> : TargetListenerInfoBase
         {
-            private readonly ITargetListener<TTarget> _listener;
+            private readonly ITargetListener<TTarget, Collider> _listener;
             private TTarget _lastTarget;
 
             public override object Listener => _listener;
@@ -137,7 +136,7 @@ namespace DoubleDCore.PhysicsTools.Casting.Raycasting
                 set => _lastTarget = (TTarget)value;
             }
 
-            public TargetListenerInfo(ITargetListener<TTarget> listener, RayCastInfo rayInfo)
+            public TargetListenerInfo(ITargetListener<TTarget, Collider> listener, RayCastInfo rayInfo)
                 : base(rayInfo)
             {
                 _listener = listener;
